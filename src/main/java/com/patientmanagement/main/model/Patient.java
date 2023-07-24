@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Patient {
@@ -15,13 +16,12 @@ public class Patient {
 	
 	private String email;
 	
-	private String password;
-
 	private String address;
 	
-	private String role;
-	
 	private int age;
+	
+	@OneToOne
+	private User user;
 
 	public int getId() {
 		return id;
@@ -63,25 +63,12 @@ public class Patient {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
+	public User getUser() {
+		return user;
 	}
 
-	public void setPassword(String password) {
-		this.password = password;
-	}
-	
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
-	}
-
-	@Override
-	public String toString() {
-		return "Patient [id=" + id + ", name=" + name + ", address=" + address + "]";
+	public void setUser(User user) {
+		this.user = user;
 	}
 	
 }

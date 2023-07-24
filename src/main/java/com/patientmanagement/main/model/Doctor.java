@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Doctor {
@@ -15,12 +16,19 @@ public class Doctor {
 	
 	private String email;
 	
-	private String password;
-	
 	private String specialization;
 	
-	private String role;
+	@OneToOne
+	private User user;
 	
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
 	public int getId() {
 		return id;
 	}
@@ -43,29 +51,13 @@ public class Doctor {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
-	public String getPassword() {
-		return password;
-	}
-	
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
+		
 	public String getSpecialization() {
 		return specialization;
 	}
 
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
-	}
-
-	public String getRole() {
-		return role;
-	}
-
-	public void setRole(String role) {
-		this.role = role;
 	}
 	
 }

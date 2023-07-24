@@ -1,6 +1,5 @@
 package com.patientmanagement.main.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patientmanagement.main.model.Doctor;
 import com.patientmanagement.main.service.DoctorService;
+import com.patientmanagement.main.service.MyUserService;
 
 @RestController
 @RequestMapping("/doctor")
@@ -24,6 +24,9 @@ public class DoctorController {
 	
 	@Autowired
 	private DoctorService doctorService;
+	
+	@Autowired
+	private MyUserService userService;
 	
 	@GetMapping("/getAll")
 	public List<Doctor> getAllDoctors(){
@@ -40,27 +43,11 @@ public class DoctorController {
 		return ResponseEntity.status(HttpStatus.OK).body(doctor);
 	}
 	
-	@PostMapping("/add")
-	public Doctor addDoctor(@RequestBody Doctor doctor) {
+	@PostMapping("/add/{userId}")
+	public Doctor addDoctor(@PathVariable("userId") int userId, @RequestBody Doctor doctor) {	
+		doctor.setUser(userService.getById(userId));
 		return doctorService.insert(doctor); 
 	}
-	
-	@PostMapping("/login")
-	public List<String> authenticateDoctor(@RequestBody Doctor doctor) {
-        String jwtToken = doctorService.generateJwtToken(doctor.getEmail(), doctor.getPassword());
-        String role = "DOCTOR";
-        List<String> doctorDetails = new ArrayList<>();
-        doctorDetails.add(jwtToken);
-        doctorDetails.add(role);
-
-        if (jwtToken != null) {
-            return doctorDetails ;
-        } else {
-            return null;
-        }
-    }
-	
-	
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteDoctor(@PathVariable("id") int id){

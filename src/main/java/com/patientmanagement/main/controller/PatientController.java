@@ -1,6 +1,5 @@
 package com.patientmanagement.main.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.patientmanagement.main.model.Patient;
+import com.patientmanagement.main.model.User;
+import com.patientmanagement.main.service.MyUserService;
 import com.patientmanagement.main.service.PatientService;
 
 @RestController
@@ -24,6 +25,10 @@ public class PatientController {
 	
 	@Autowired
 	private PatientService patientService;
+	
+	@Autowired
+	private MyUserService userService;
+	
 	
 	@GetMapping("/getAll")
 	public List<Patient> getAllPatients(){
@@ -51,23 +56,10 @@ public class PatientController {
 		return ResponseEntity.status(HttpStatus.OK).body(patient);
 	}
 	
-	@PostMapping("/login")
-	public List<String> authenticatePatient(@RequestBody Patient patient) {
-        String jwtToken = patientService.generateJwtToken(patient.getEmail(), patient.getPassword());
-        String role = "PATIENT";
-        List<String> patientDetails = new ArrayList<>();
-        patientDetails.add(jwtToken);
-        patientDetails.add(role);
-
-        if (jwtToken != null) {
-            return patientDetails ;
-        } else {
-            return null;
-        }
-    }
-	
-	@PostMapping("/add")
-	public Patient addPatient(@RequestBody Patient patient) {
+	@PostMapping("/add/{userId}")
+	public Patient addPatient(@PathVariable("userId") int userId,@RequestBody Patient patient) {
+		User user = userService.getById(userId);
+	    patient.setUser(user);
 		return patientService.insert(patient); 
 	}
 	
