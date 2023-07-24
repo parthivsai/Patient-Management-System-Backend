@@ -1,5 +1,6 @@
 package com.patientmanagement.main.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,6 +44,23 @@ public class DoctorController {
 	public Doctor addDoctor(@RequestBody Doctor doctor) {
 		return doctorService.insert(doctor); 
 	}
+	
+	@PostMapping("/login")
+	public List<String> authenticateDoctor(@RequestBody Doctor doctor) {
+        String jwtToken = doctorService.generateJwtToken(doctor.getEmail(), doctor.getPassword());
+        String role = "DOCTOR";
+        List<String> doctorDetails = new ArrayList<>();
+        doctorDetails.add(jwtToken);
+        doctorDetails.add(role);
+
+        if (jwtToken != null) {
+            return doctorDetails ;
+        } else {
+            return null;
+        }
+    }
+	
+	
 	
 	@DeleteMapping("/delete/{id}")
 	public ResponseEntity<?> deleteDoctor(@PathVariable("id") int id){

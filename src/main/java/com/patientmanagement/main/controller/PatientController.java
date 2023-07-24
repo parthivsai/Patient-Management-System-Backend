@@ -1,5 +1,6 @@
 package com.patientmanagement.main.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,17 @@ public class PatientController {
 		return patientList;
 	}
 	
+//	@GetMapping("/get/{email}/{password}")
+//	public ResponseEntity<?> getByEmailAndPassword(@PathVariable("email") String email,
+//			@PathVariable("password") String password) {
+//		System.out.println("Email Entered: " + email+" Password Entered: " + password);
+//		Patient patient = patientService.getByEmailAndPassword(email,password);
+//		if(patient == null) {
+//			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Email/Password. Try again with correct details!");
+//		}
+//		return ResponseEntity.status(HttpStatus.OK).body(patient);
+//	}
+	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<?> getPatient(@PathVariable("id") int id) {
 		Patient patient = patientService.getPatient(id);
@@ -38,6 +50,21 @@ public class PatientController {
 		}
 		return ResponseEntity.status(HttpStatus.OK).body(patient);
 	}
+	
+	@PostMapping("/login")
+	public List<String> authenticatePatient(@RequestBody Patient patient) {
+        String jwtToken = patientService.generateJwtToken(patient.getEmail(), patient.getPassword());
+        String role = "PATIENT";
+        List<String> patientDetails = new ArrayList<>();
+        patientDetails.add(jwtToken);
+        patientDetails.add(role);
+
+        if (jwtToken != null) {
+            return patientDetails ;
+        } else {
+            return null;
+        }
+    }
 	
 	@PostMapping("/add")
 	public Patient addPatient(@RequestBody Patient patient) {

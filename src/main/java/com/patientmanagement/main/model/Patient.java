@@ -18,6 +18,10 @@ public class Patient {
 	private String password;
 
 	private String address;
+	
+	private String role;
+	
+	private int age;
 
 	public int getId() {
 		return id;
@@ -25,6 +29,14 @@ public class Patient {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public int getAge() {
+		return age;
+	}
+
+	public void setAge(int age) {
+		this.age = age;
 	}
 
 	public String getName() {
@@ -59,6 +71,14 @@ public class Patient {
 		this.password = password;
 	}
 	
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
+	}
+
 	@Override
 	public String toString() {
 		return "Patient [id=" + id + ", name=" + name + ", address=" + address + "]";

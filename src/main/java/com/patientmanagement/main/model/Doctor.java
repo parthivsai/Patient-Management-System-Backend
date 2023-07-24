@@ -19,6 +19,8 @@ public class Doctor {
 	
 	private String specialization;
 	
+	private String role;
+	
 	public int getId() {
 		return id;
 	}
@@ -56,6 +58,14 @@ public class Doctor {
 
 	public void setSpecialization(String specialization) {
 		this.specialization = specialization;
+	}
+
+	public String getRole() {
+		return role;
+	}
+
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
 }
