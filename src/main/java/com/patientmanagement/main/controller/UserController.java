@@ -23,7 +23,13 @@ public class UserController {
 
 	@Autowired
 	private MyUserService userService;
-
+	
+	@GetMapping("/getAll")
+	public List<User> getAll(){
+		List<User> users = userService.getAll();
+		return users;
+	}
+	
 	@GetMapping("/login") 
 	public UserDetails login(Principal principal) {
 		String username = principal.getName();
@@ -37,6 +43,7 @@ public class UserController {
 	@PostMapping("/login")
 	public List<Object> authenticateDoctor(@RequestBody User user) {
         List<Object> userDetails = userService.generateJwtToken(user.getUsername(), user.getPassword());
+//        System.out.println(userDetails);
         return userDetails;
     }
 	

@@ -42,11 +42,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// Assigning permissions to my api's according to the requirements
 		http.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/doctor/login").authenticated()
-				.antMatchers(HttpMethod.POST, "/doctor/add").hasAnyAuthority("ADMIN")
+				.antMatchers(HttpMethod.POST, "/doctor/add/{id}").hasAnyAuthority("DOCTOR")
 				.antMatchers(HttpMethod.PUT, "/doctor/update/{id}").hasAnyAuthority("ADMIN")
 				.antMatchers(HttpMethod.PUT, "/doctor/delete/{id}").hasAnyAuthority("ADMIN")
 				.antMatchers(HttpMethod.GET, "/patient/login").authenticated()
-				.antMatchers(HttpMethod.POST, "/patient/add").hasAnyAuthority("DOCTOR","ADMIN")
+				.antMatchers(HttpMethod.POST, "/patient/add/{id}").hasAnyAuthority("DOCTOR","ADMIN")
 				.antMatchers(HttpMethod.PUT, "/patient/update/{id}").hasAnyAuthority("DOCTOR","ADMIN")
 				.antMatchers(HttpMethod.PUT, "/patient/delete/{id}").hasAnyAuthority("DOCTOR","ADMIN")
 				.anyRequest().permitAll()

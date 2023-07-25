@@ -43,6 +43,7 @@ public class MyUserService implements UserDetailsService {
 	
 	public List<Object> generateJwtToken(String userName, String password) {
         User user = userRepository.getUserByUsername(userName);
+//        System.out.println(user);
        
         if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword())) {
             String token =  jwtProvider.generateToken(userName);
@@ -51,13 +52,18 @@ public class MyUserService implements UserDetailsService {
             userDetails.add(token);
             userDetails.add(user.getRole());
             
-            if(user.getRole() == "DOCTOR") {
+//            System.out.println("Token: " + token + " Role: " + user.getRole());
+            
+            if(user.getRole().equals("DOCTOR")) {
+//            	System.out.println("Check for username " + userName);
             	Doctor doc = doctorService.getByUsername(userName);
             	userDetails.add(doc);
+//            	System.out.println("in doc loop" + doc);
             	return userDetails;
-            }else if(user.getRole() == "PATIENT") {
+            }else if(user.getRole().equals("PATIENT")) {
             	Patient patient = patientService.getByUsername(userName);
             	userDetails.add(patient);
+//            	System.out.println(patient);
             	return userDetails;
             }
         }
@@ -80,6 +86,10 @@ public class MyUserService implements UserDetailsService {
 
 	public void deleteUser(User user) {
 		userRepository.delete(user);
+	}
+	
+	public List<User> getAll(){
+		return userRepository.findAll();
 	}
 
 }
