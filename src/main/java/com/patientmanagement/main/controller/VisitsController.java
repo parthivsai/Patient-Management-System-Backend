@@ -45,6 +45,24 @@ public class VisitsController {
 		return visits;
 	}
 	
+	@GetMapping("/getByDoc/{id}")
+	public ResponseEntity<?> getVistByDoc(@PathVariable("id") int id) {
+		List<Visits> visits = visitsService.getVisitByDoc(id);
+		if(visits == null) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(visits);
+	}
+	
+	@GetMapping("/getByPat/{id}")
+	public ResponseEntity<?> getVistByPat(@PathVariable("id") int id) {
+		List<Visits> visits = visitsService.getVisitByPat(id);
+		if(visits.size() == 0) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid ID given");
+		}
+		return ResponseEntity.status(HttpStatus.OK).body(visits);
+	}
+	
 	@GetMapping("/get/{id}")
 	public ResponseEntity<?> getVisit(@PathVariable("id") int id) {
 		Visits visits = visitsService.getVisits(id);

@@ -1,5 +1,7 @@
 package com.patientmanagement.main.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -23,6 +25,16 @@ public class Visits {
 	
 	@ManyToOne
 	private Medicine medicine;
+	
+	private LocalDate date;
+
+	public LocalDate getDate() {
+		return date;
+	}
+
+	public void setDate(LocalDate date) {
+		this.date = date;
+	}
 
 	public int getId() {
 		return id;

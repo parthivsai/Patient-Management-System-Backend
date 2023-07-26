@@ -35,5 +35,13 @@ public class VisitsService {
 		visitsRepository.delete(visit);
 		
 	}
+
+	public List<Visits> getVisitByDoc(int id) {
+		return visitsRepository.getVisitByDoc(id);
+	}
+
+	public List<Visits> getVisitByPat(int id) {
+		return visitsRepository.getVisitByPat(id);
+	}
 	
 }

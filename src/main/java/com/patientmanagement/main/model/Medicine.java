@@ -1,11 +1,15 @@
 package com.patientmanagement.main.model;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateSerializer;
 
 @Entity
 public class Medicine {
@@ -17,7 +21,9 @@ public class Medicine {
 	
 	private String price;
 	
-	private Date expiryDate;
+	private LocalDate expiryDate;
+	
+	private int stock;
 	
 	public int getId() {
 		return id;
@@ -42,12 +48,21 @@ public class Medicine {
 	public void setPrice(String price) {
 		this.price = price;
 	}
-	
-	public Date getExpiryDate() {
+
+	public LocalDate getExpiryDate() {
 		return expiryDate;
 	}
-	
-	public void setExpiryDate(Date expiryDate) {
+
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
+
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	
 }
