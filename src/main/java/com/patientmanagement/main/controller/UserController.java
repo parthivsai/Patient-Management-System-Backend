@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.patientmanagement.main.model.User;
 import com.patientmanagement.main.service.MyUserService;
 
@@ -38,6 +39,12 @@ public class UserController {
 		
 		return user;
 		
+	}
+	
+	@GetMapping("/get/{username}")
+	public User getUserByUsername(@PathVariable String username) {
+		User u = userService.getByUsername(username);
+		return u;
 	}
 	
 	@PostMapping("/login")

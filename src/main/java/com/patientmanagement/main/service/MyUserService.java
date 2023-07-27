@@ -74,7 +74,7 @@ public class MyUserService implements UserDetailsService {
         return null;
     }
 
-	private User getByUsername(String userName) {
+	public User getByUsername(String userName) {
 		return userRepository.getUserByUsername(userName);
 	}
 
