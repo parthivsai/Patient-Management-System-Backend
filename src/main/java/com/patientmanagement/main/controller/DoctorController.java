@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.patientmanagement.main.model.Doctor;
 import com.patientmanagement.main.service.DoctorService;
 import com.patientmanagement.main.service.MyUserService;
+import com.patientmanagement.main.service.VisitsService;
 
 @RestController
 @RequestMapping("/doctor")
@@ -27,6 +28,9 @@ public class DoctorController {
 	
 	@Autowired
 	private MyUserService userService;
+	
+	@Autowired
+	private VisitsService visitsService;
 	
 	@GetMapping("/getAll")
 	public List<Doctor> getAllDoctors(){
@@ -46,6 +50,7 @@ public class DoctorController {
 	@PostMapping("/add/{userId}")
 	public Doctor addDoctor(@PathVariable("userId") int userId, @RequestBody Doctor doctor) {	
 		doctor.setUser(userService.getById(userId));
+		doctor.getUser().setRole("DOCTOR");
 		return doctorService.insert(doctor); 
 	}
 	
@@ -55,7 +60,7 @@ public class DoctorController {
 		if(doctor == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Doctor Id given!");
 		}
-	
+		visitsService.deleteByDocId(id);
 		doctorService.deleteDoctor(doctor);
 		return ResponseEntity.status(HttpStatus.OK).body("Doctor deleted Successfully!");
 	}

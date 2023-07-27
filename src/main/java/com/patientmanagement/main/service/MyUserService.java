@@ -65,10 +65,18 @@ public class MyUserService implements UserDetailsService {
             	userDetails.add(patient);
 //            	System.out.println(patient);
             	return userDetails;
+            }else {
+            	User getUser = getByUsername(userName);
+            	userDetails.add(getUser);
+            	return userDetails;
             }
         }
         return null;
     }
+
+	private User getByUsername(String userName) {
+		return userRepository.getUserByUsername(userName);
+	}
 
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {

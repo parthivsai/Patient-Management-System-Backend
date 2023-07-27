@@ -18,6 +18,7 @@ import com.patientmanagement.main.model.Patient;
 import com.patientmanagement.main.model.User;
 import com.patientmanagement.main.service.MyUserService;
 import com.patientmanagement.main.service.PatientService;
+import com.patientmanagement.main.service.VisitsService;
 
 @RestController
 @RequestMapping("/patient")
@@ -28,6 +29,9 @@ public class PatientController {
 	
 	@Autowired
 	private MyUserService userService;
+	
+	@Autowired
+	private VisitsService visitsService;
 	
 	
 	@GetMapping("/getAll")
@@ -60,6 +64,7 @@ public class PatientController {
 	public Patient addPatient(@PathVariable("userId") int userId,@RequestBody Patient patient) {
 		User user = userService.getById(userId);
 	    patient.setUser(user);
+	    patient.getUser().setRole("PATIENT");
 		return patientService.insert(patient); 
 	}
 	
@@ -69,7 +74,7 @@ public class PatientController {
 		if(patient == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Patient Id given!");
 		}
-	
+		visitsService.deleteByPatientId(id);
 		patientService.deletePatient(patient);
 		return ResponseEntity.status(HttpStatus.OK).body("Patient deleted Successfully!");
 	}
@@ -80,6 +85,7 @@ public class PatientController {
 		if(oldPatient == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Patient Id given!");
 		}
+		newPatient.setUser(oldPatient.getUser());
 		newPatient.setId(oldPatient.getId());
 		newPatient = patientService.insert(newPatient);
 		return ResponseEntity.status(HttpStatus.OK).body(newPatient);

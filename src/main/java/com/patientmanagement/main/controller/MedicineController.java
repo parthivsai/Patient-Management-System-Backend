@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.patientmanagement.main.model.Medicine;
 import com.patientmanagement.main.service.MedicineService;
+import com.patientmanagement.main.service.VisitsService;
 
 @RestController
 @RequestMapping("/medicine")
@@ -26,6 +27,9 @@ public class MedicineController {
 	
 	@Autowired
 	private MedicineService medicineService;
+	
+	@Autowired
+	private VisitsService visitsService;
 	
 	@GetMapping("/getAll")
 	public List<Medicine> getAllMedicines(){
@@ -53,7 +57,7 @@ public class MedicineController {
 		if(medicine == null) {
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid Medicine Id given!");
 		}
-	
+		visitsService.deleteByMedicineId(id);
 		medicineService.deleteMedicine(medicine);
 		return ResponseEntity.status(HttpStatus.OK).body("Medicine deleted Successfully!");
 	}
