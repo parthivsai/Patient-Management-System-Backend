@@ -125,7 +125,7 @@ public class PatientDoctorController {
 		
 		pdRecord.setDoctor(doctor);
 		pdRecord.setPatient(patient);
-		
+		pdRecord.setApprovalStatus("PENDING");
 		pdRecord = pdService.save(pdRecord);
 		return ResponseEntity.status(HttpStatus.OK).body(pdRecord);
 	}
