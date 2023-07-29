@@ -24,6 +24,8 @@ public class PatientDoctor {
 	private String request;
 	
 	private String timeSlot;
+	
+	private String day;
 
 	public int getId() {
 		return id;
@@ -72,5 +74,12 @@ public class PatientDoctor {
 	public void setTimeSlot(String timeSlot) {
 		this.timeSlot = timeSlot;
 	}
-	
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
 }
