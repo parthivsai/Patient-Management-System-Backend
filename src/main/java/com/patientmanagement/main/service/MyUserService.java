@@ -46,11 +46,13 @@ public class MyUserService implements UserDetailsService {
 //        System.out.println(user);
        
         if (user != null && bCryptPasswordEncoder.matches(password, user.getPassword())) {
-            String token =  jwtProvider.generateToken(userName);
+            String token =  jwtProvider.generateToken(userName, user.getRole());
+            System.out.println(token);
             
             List<Object> userDetails = new ArrayList<>();
             userDetails.add(token);
             userDetails.add(user.getRole());
+            System.out.println(user.getRole());
             
 //            System.out.println("Token: " + token + " Role: " + user.getRole());
             
@@ -101,4 +103,3 @@ public class MyUserService implements UserDetailsService {
 	}
 
 }
-

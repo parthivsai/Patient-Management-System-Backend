@@ -74,6 +74,5 @@ public class Visits {
 
 	public void setMedicine(Medicine medicine) {
 		this.medicine = medicine;
-	} 
-	
+	} 	
 }
