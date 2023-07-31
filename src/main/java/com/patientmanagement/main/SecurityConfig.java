@@ -45,17 +45,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		// List of my api's along with User permissions
 		// Assigning permissions to my api's according to the requirements
 		http.authorizeRequests()
-//				.antMatchers(HttpMethod.GET, "/doctor/login").authenticated()
-//				.antMatchers(HttpMethod.POST, "/doctor/add/{id}").hasAnyAuthority("DOCTOR")
-//				.antMatchers(HttpMethod.PUT, "/doctor/update/{id}").hasAnyAuthority("ADMIN")
-//				.antMatchers(HttpMethod.PUT, "/doctor/delete/{id}").hasAnyAuthority("ADMIN")
-//				.antMatchers(HttpMethod.GET, "/patient/login").authenticated()
-//				.antMatchers(HttpMethod.POST, "/patient/add/{id}").hasAnyAuthority("DOCTOR","ADMIN")
-//				.antMatchers(HttpMethod.PUT, "/patient/update/{id}").hasAnyAuthority("DOCTOR","ADMIN")
-//				.antMatchers(HttpMethod.PUT, "/patient/delete/{id}").hasAnyAuthority("DOCTOR","ADMIN")
+				.antMatchers(HttpMethod.GET, "/doctor/login").authenticated()
+				.antMatchers(HttpMethod.PUT, "/doctor/update/{id}").hasAnyAuthority("ADMIN")
+				.antMatchers(HttpMethod.PUT, "/doctor/delete/{id}").hasAnyAuthority("ADMIN")
+				.antMatchers(HttpMethod.GET, "/patient/login").authenticated()
+				.antMatchers(HttpMethod.PUT, "/patient/update/{id}").hasAnyAuthority("DOCTOR","ADMIN")
+				.antMatchers(HttpMethod.PUT, "/patient/delete/{id}").hasAnyAuthority("DOCTOR","ADMIN")
 				.anyRequest().permitAll()
-				.and()
-				.httpBasic()
 				.and()
 				.csrf().disable()
 				.addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class);
