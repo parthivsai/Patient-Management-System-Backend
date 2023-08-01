@@ -1,5 +1,7 @@
 package com.patientmanagement.main.model;
 
+import java.time.LocalDate;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,7 +27,7 @@ public class PatientDoctor {
 	
 	private String timeSlot;
 	
-	private String day;
+	private LocalDate day;
 
 	public int getId() {
 		return id;
@@ -75,11 +77,11 @@ public class PatientDoctor {
 		this.timeSlot = timeSlot;
 	}
 
-	public String getDay() {
+	public LocalDate getDay() {
 		return day;
 	}
 
-	public void setDay(String day) {
+	public void setDay(LocalDate day) {
 		this.day = day;
 	}
 }
