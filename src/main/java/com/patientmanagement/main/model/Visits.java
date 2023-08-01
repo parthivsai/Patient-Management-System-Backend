@@ -27,6 +27,16 @@ public class Visits {
 	private Medicine medicine;
 	
 	private LocalDate date;
+	
+	private String prescription;
+
+	public String getPrescription() {
+		return prescription;
+	}
+
+	public void setPrescription(String prescription) {
+		this.prescription = prescription;
+	}
 
 	public LocalDate getDate() {
 		return date;
